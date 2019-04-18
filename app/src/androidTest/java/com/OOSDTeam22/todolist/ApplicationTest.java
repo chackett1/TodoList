@@ -1,4 +1,4 @@
-package com.OODTeam22.todolist;
+package com.OOSDTeam22.todolist;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

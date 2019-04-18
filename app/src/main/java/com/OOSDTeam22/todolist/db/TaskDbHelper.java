@@ -1,4 +1,4 @@
-package com.OODTeam22.todolist.db;
+package com.OOSDTeam22.todolist.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +14,8 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TaskContract.TaskEntry.TABLE + " ( " +
                 TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                TaskContract.TaskEntry.COL_TASK_TITLE + " TEXT NOT NULL);";
+                TaskContract.TaskEntry.COL_LIST_NAME + " TEXT NOT NULL, " +
+                TaskContract.TaskEntry.COL_LIST_ITEM + " TEXT NOT NULL );";
 
         db.execSQL(createTable);
     }

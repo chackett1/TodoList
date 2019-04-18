@@ -7,10 +7,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.OOSDTeam22.todolist.MainActivity">
+    tools:context="com.OOSDTeam22.todolist.ListDetailsActivity">
+
+    <TextView
+        android:id="@+id/list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List Name"
+        android:textSize="36sp" />
 
     <ListView
-        android:id="@+id/list_todo"
+        android:id="@+id/list_details"
+        android:paddingTop="70dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>
