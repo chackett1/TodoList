@@ -23,6 +23,9 @@ import com.OOSDTeam22.todolist.db.TaskDbHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+	The home page of the app that displays all of the saved lists
+*/
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private TaskDbHelper mHelper;
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     public static final String EXTRA_MESSAGE = "com.example.OOSDTeam22.MESSAGE";
 
+	/**
+		Loads the layout for the home screen
+	*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +47,20 @@ public class MainActivity extends AppCompatActivity {
         updateUI();
     }
 
+	/**
+		Loads the top menu for the home screen
+		@return true if the menu was loaded
+	*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+	/**
+		Button listener for adding new lists
+		@return true if the list was added successfully
+	*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -81,34 +95,23 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-/*
-    public void deleteTask(View view) {
-        View parent = (View) view.getParent();
-        TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
-        String task = String.valueOf(taskTextView.getText());
-        SQLiteDatabase db = mHelper.getWritableDatabase();
-        db.delete(TaskContract.TaskEntry.TABLE,
-                TaskContract.TaskEntry.COL_LIST_NAME + " = ?",
-                new String[]{task});
-        db.delete(TaskContract.TaskEntry.TABLE,
-                TaskContract.TaskEntry.COL_LIST_ITEM + " = ?",
-                new String[]{task + "1"});
-        db.close();
-        updateUI();
-    }
-*/
+	
+	/**
+		Loads the ListDetailsActivity screen with the desired list
+	*/
     public void openTask(View view) {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.list_title);
         String task = String.valueOf(taskTextView.getText());
 
         Intent intent = new Intent(this, ListDetailsActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.editText);
-        //String message = "Hello World";//editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, task);
         startActivity(intent);
     }
 
+	/**
+		Refreshes the UI based on the results of the database query
+	*/
     private void updateUI() {
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
@@ -145,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
 
+    /**
+        Checks if a listItem spans over multiple lines
+     */
     public static boolean IsOneLine(String listItem) {
         if (listItem.contains("\n")) {
             return false;
@@ -153,4 +159,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
 }

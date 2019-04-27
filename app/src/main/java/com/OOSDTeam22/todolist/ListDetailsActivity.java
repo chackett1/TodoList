@@ -21,9 +21,11 @@ import com.OOSDTeam22.todolist.db.TaskContract;
 import com.OOSDTeam22.todolist.db.TaskDbHelper;
 
 import java.util.ArrayList;
-
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
+/**
+	The page of the app that displays the list items of the selected list
+*/
 public class ListDetailsActivity extends AppCompatActivity {
     private static final String TAG = "ListDetailsActivity";
     private TaskDbHelper mHelper;
@@ -31,6 +33,9 @@ public class ListDetailsActivity extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     private String selectedList = "";
 
+	/**
+		Loads the layout for the list details screen
+	*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +56,20 @@ public class ListDetailsActivity extends AppCompatActivity {
         updateUI();
     }
 
+	/**
+		Loads the top menu for the home screen
+		@return true if the menu was loaded
+	*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+	/**
+		Button listener for adding new list items
+		@return true if the list was added successfully
+	*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -92,14 +105,15 @@ public class ListDetailsActivity extends AppCompatActivity {
         }
     }
 
+	/**
+		Remove the list item from the database and calls updateUI
+	*/
     public void deleteTask(View view) {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.item_title);
         String task = String.valueOf(taskTextView.getText());
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        //db.delete(TaskContract.TaskEntry.TABLE,
-        //        TaskContract.TaskEntry.COL_LIST_NAME + " = ?",
-        //        new String[]{selectedList});
+		
         db.delete(TaskContract.TaskEntry.TABLE,
                 TaskContract.TaskEntry.COL_LIST_ITEM + " = ? AND " + TaskContract.TaskEntry.COL_LIST_NAME + " = ?",
                 new String[]{task, selectedList});
@@ -107,15 +121,9 @@ public class ListDetailsActivity extends AppCompatActivity {
         updateUI();
     }
 
-    /*public void openTask(View view) {
-
-        Intent intent = new Intent(this, ListDetailsActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.editText);
-        String message = "Hello World";//editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }*/
-
+	/**
+		Refreshes the UI based on the results of the database query
+	*/
     private void updateUI() {
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
@@ -144,6 +152,9 @@ public class ListDetailsActivity extends AppCompatActivity {
         db.close();
     }
 
+    /**
+        Checks if a list item contains less than 10 characters
+     */
     public static boolean LessThan10Characters(String listItem) {
         if (listItem.length() < 10) {
             return true;
@@ -152,4 +163,5 @@ public class ListDetailsActivity extends AppCompatActivity {
             return false;
         }
     }
+
 }
