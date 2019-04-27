@@ -144,4 +144,13 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         db.close();
     }
+
+    public static boolean IsOneLine(String listItem) {
+        if (listItem.contains("\n")) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }

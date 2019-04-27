@@ -143,4 +143,13 @@ public class ListDetailsActivity extends AppCompatActivity {
         cursor.close();
         db.close();
     }
+
+    public static boolean LessThan10Characters(String listItem) {
+        if (listItem.length() < 10) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
